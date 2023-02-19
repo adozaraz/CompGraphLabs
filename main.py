@@ -18,7 +18,7 @@ if __name__ == '__main__':
         i += 1
     print('Finished')
     print('\n\n# Task 2')
-    imgs = [np.zeros((H, W, 3), dtype=np.uint8) for i in range(3)]
+    imgs = [np.zeros((H, W, 3), dtype=np.uint8) for i in range(4)]
     print('Drawing Lines')
     for j in range(len(imgs)):
         print(f'Algorithm {j}')

@@ -69,7 +69,7 @@ def drawLine(point1, point2, image, color, algorithmType):
             dy = int(point2.y - point1.y)
             derr = abs(dy / float(dx))
             err = 0
-            y = int(point2.y)
+            y = int(point1.y)
             x = point1.x
             while x <= point2.x:
                 if steep:
