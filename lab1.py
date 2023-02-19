@@ -85,3 +85,26 @@ def drawLine(point1, point2, image, color, algorithmType):
     return image
 
 
+# Задание 3
+
+def getNodesFromFile(filePath):
+    nodes = []
+    with open(filePath, 'r') as f:
+        for i in f.readlines():
+            if 'v ' in i:
+                result = i.strip().split(' ')
+                result.pop(0)
+                result = list(map(float, result))
+                nodes.append(result)
+    return nodes
+
+
+# Задание 4
+
+def drawNodes(nodes, H, W, color, transformNumber):
+    image = np.zeros([H, W, 3], dtype=np.uint8)
+    for node in nodes:
+        x = int(transformNumber * node[0] + 500)
+        y = int(transformNumber * node[1] + 500)
+        image[x, y] = color
+    return image
