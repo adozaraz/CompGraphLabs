@@ -19,6 +19,9 @@ class Point:
     def y(self, y):
         self.__y = y
 
+    def __str__(self):
+        return f'({self.x}, {self.y})'
+
     def __add__(self, other):
         if isinstance(other, Point):
             return Point(self.x + other.x, self.y + other.y)

@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 from Point import Point
+from operator import methodcaller
 
 # Задание 1
 
@@ -22,8 +23,10 @@ def createImageMatrix(H, W):
     return blackImage, whiteImage, RGBImage, gradientImage
 
 
-def saveImage(imgMatrix, name):
+def saveImage(imgMatrix, name, rotate=False):
     img = Image.fromarray(imgMatrix)
+    if rotate:
+        img = img.rotate(90)
     img.save(f'{name}.png')
 
 
@@ -67,10 +70,10 @@ def drawLine(point1, point2, image, color, algorithmType):
         else:
             dx = int(point2.x - point1.x)
             dy = int(point2.y - point1.y)
-            derr = abs(dy / float(dx))
+            derr = abs(dy / float(dx)) if dx != 0 else 0
             err = 0
             y = int(point1.y)
-            x = point1.x
+            x = int(point1.x)
             while x <= point2.x:
                 if steep:
                     image[y, x] = color
@@ -87,7 +90,7 @@ def drawLine(point1, point2, image, color, algorithmType):
 
 # Задание 3
 
-def getNodesFromFile(filePath):
+def getNodesFromFile(filePath, toPoint=False):
     nodes = []
     with open(filePath, 'r') as f:
         for i in f.readlines():
@@ -95,16 +98,52 @@ def getNodesFromFile(filePath):
                 result = i.strip().split(' ')
                 result.pop(0)
                 result = list(map(float, result))
+                if toPoint:
+                    result = Point(result[0], result[1])
                 nodes.append(result)
     return nodes
 
 
 # Задание 4
 
+
 def drawNodes(nodes, H, W, color, transformNumber):
     image = np.zeros([H, W, 3], dtype=np.uint8)
     for node in nodes:
-        x = int(transformNumber * node[0] + 500)
-        y = int(transformNumber * node[1] + 500)
+        if isinstance(node, Point):
+            x = int(transformNumber * node.x + 500)
+            y = int(transformNumber * node.y + 500)
+        else:
+            x = int(transformNumber * node[0] + 500)
+            y = int(transformNumber * node[1] + 500)
         image[x, y] = color
+    return image
+
+
+# Задание 5
+
+
+def getPolygons(filePath):
+    polygons = []
+    with open(filePath, 'r') as f:
+        for i in f.readlines():
+            if 'f ' in i:
+                result = i.strip().split(' ')
+                result.pop(0)
+                result = list(map(methodcaller('split', '/'), result))
+                result = list(map(int, [result[0][0], result[1][0], result[2][0]]))
+                polygons.append(result)
+    return polygons
+
+# Задание 6
+
+
+def drawPolygons(H, W, nodes, polygons, transformNumber):
+    image = drawNodes(nodes, H, W, [255, 255, 255], transformNumber)
+    saveImage(image, 'Test', rotate=True)
+    for i in polygons:
+        point1 = Point(transformNumber * nodes[i[0] - 1].x + 500, transformNumber * nodes[i[0] - 1].y + 500)
+        point2 = Point(transformNumber * nodes[i[1] - 1].x + 500, transformNumber * nodes[i[1] - 1].y + 500)
+        image = drawLine(point1, point2, image, [255, 255, 255], 3)
+
     return image

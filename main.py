@@ -43,26 +43,38 @@ def task3():
         print(i)
 
 
-def task4(H, W, filePath='objects/fox.obj', color=None, fileName='fox'):
+def task4(H, W, filePath='objects/rabbit.obj', color=None, fileName='rabbit', transformNumber=4000):
     if color is None:
         color = [255, 255, 255]
     nodes = getNodesFromFile(filePath)
-    transformNumbers = [1, 2, 3, 5, 10, 50, 100, 500, 4000]
-    i = 0
-    for transformNumber in transformNumbers:
-        image = drawNodes(nodes, H, W, color, transformNumber)
-        saveImage(image, f'{fileName}{i}')
-        i += 1
+    image = drawNodes(nodes, H, W, color, transformNumber)
+    saveImage(image, f'{fileName}', rotate=True)
+
+
+
+
+
+def task6(H, W, filePath='objects/rabbit.obj', fileName='RabbitPolygon', transformNumber=4000):
+    nodes = getNodesFromFile(filePath, toPoint=True)
+    polygons = getPolygons(filePath)
+    image = drawPolygons(H, W, nodes, polygons, transformNumber)
+    saveImage(image, fileName, rotate=True)
+
 
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    H = 200
+    W = 200
+    filePath = 'objects/rabbit.obj'
+    fox = 'objects/fox.obj'
+    deer = 'objects/deer.obj'
+    task1(H, W)
+    task2(H, W)
     H = 1000
     W = 1000
-
-#    task1(H, W)
-#    task2(H, W)
-#    task3()
-    task4(H, W)
-
+    task3()
+    task4(H, W, filePath=fox, fileName='Fox', transformNumber=5)
+    # Олень - .34, Кролик - 4000, Лис - 5
+    task6(H, W, deer, 'Deer', 0.34)
