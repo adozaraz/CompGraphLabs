@@ -58,10 +58,8 @@ def convertImageToAscii(image):
     return output
 
 
-def playVideoInConsole(frames, musicFilePath):
+def playVideoInConsole(frames):
     clear_console = 'clear' if os.name == 'posix' else 'cls'
-    p = vlc.MediaPlayer(musicFilePath)
-    p.play()
     for frame in frames:
         newFrame = convertImageToAscii(frame)
         os.system(clear_console)
@@ -70,8 +68,8 @@ def playVideoInConsole(frames, musicFilePath):
         #time.sleep(0.1)
 
 
-def workWithGif(filePath, musicFilePath):
+def workWithGif(filePath):
     gif = Image.open(filePath)
     frames = extractFrames(gif)
-    playVideoInConsole(frames, musicFilePath)
+    playVideoInConsole(frames)
 

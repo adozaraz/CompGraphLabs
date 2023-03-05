@@ -1,7 +1,8 @@
 class Point:
-    def __init__(self, x=0.0, y=0.0):
+    def __init__(self, x=0.0, y=0.0, z=0.0):
         self.__x = x
         self.__y = y
+        self.__z = z
 
     @property
     def x(self):
@@ -11,6 +12,10 @@ class Point:
     def y(self):
         return self.__y
 
+    @property
+    def z(self):
+        return self.__z
+
     @x.setter
     def x(self, x):
         self.__x = x
@@ -19,97 +24,7 @@ class Point:
     def y(self, y):
         self.__y = y
 
-    def __str__(self):
-        return f'({self.x}, {self.y})'
+    @z.setter
+    def z(self, z):
+        self.__z = z
 
-    def __add__(self, other):
-        if isinstance(other, Point):
-            return Point(self.x + other.x, self.y + other.y)
-
-        return Point(self.x + other, self.y + other)
-
-    def __sub__(self, other):
-        if isinstance(other, Point):
-            return Point(self.x - other.x, self.y - other.y)
-
-        return Point(self.x - other, self.y - other)
-
-    def __mul__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented("Figuring out")
-
-        return Point(self.x * other, self.y * other)
-
-    def __floordiv__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring out')
-
-        return Point (self.x // other, self.y // other)
-
-    def __truediv__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring out')
-
-        return Point(self.x / other, self.y / other)
-
-    def __mod__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring out')
-
-        return Point(self.x % other, self.y % other)
-
-    def __pow__(self, power, modulo=None):
-        return Point(self.x ** power, self.y ** power)
-
-    def __iadd__(self, other):
-        if isinstance(other, Point):
-            self.x += other.x
-            self.y += other.y
-        else:
-            self.x += other
-            self.y += other
-        return self
-
-    def __isub__(self, other):
-        if isinstance(other, Point):
-            self.x -= other.x
-            self.y -= other.y
-        else:
-            self.x -= other
-            self.y -= other
-        return self
-
-    def __imul__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring Out')
-        self.x -= other
-        self.y -= other
-        return self
-
-    def __ifloordiv__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring Out')
-        self.x //= other
-        self.y //= other
-        return self
-
-    def __itruediv__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring Out')
-        self.x /= other
-        self.y /= other
-        return self
-
-    def __imod__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring Out')
-        self.x %= other
-        self.y %= other
-        return self
-
-    def __ipow__(self, other):
-        if isinstance(other, Point):
-            raise NotImplemented('Figuring Out')
-        self.x **= other
-        self.y **= other
-        return self

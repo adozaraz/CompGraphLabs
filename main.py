@@ -1,4 +1,4 @@
-from lab1 import *
+from Parser import *
 from gifConventor import workWithGif
 
 def lab1():
@@ -21,5 +21,4 @@ def lab1():
 if __name__ == '__main__':
     # lab1()
     gifFilePath = "gif/JoJo's Bizarre Adventure All Openings 1-13 1080p_1.gif"
-    musicFilePath = "gif/JoJo's Bizarre Adventure All Openings 1-13 1080p.mp3"
-    workWithGif(gifFilePath, musicFilePath)
+    workWithGif(gifFilePath)
