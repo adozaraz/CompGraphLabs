@@ -1,15 +1,15 @@
-import time
-
 from PIL import Image, ImageFont
-import vlc
 import os, sys
 
-folderWorkPath = 'gif/'
-gifToPlay = '.gif'
-musicToPlay = '.mp3'
+
+
+def main():
+    gifFilePath = "gif/JoJo's Bizarre Adventure All Openings 1-13 1080p_1.gif"
+    workWithGif(gifFilePath)
 
 
 def extractFrames(gif):
+    # Вытаскиваем кадры из gif файла
     frames = []
     try:
         while True:
@@ -24,9 +24,10 @@ def extractFrames(gif):
 
 
 def convertImageToAscii(image):
-    font = ImageFont.load_default()  # load default bitmap monospaced font
+    # Преобразовываем изображение в ASCII изображение
+    font = ImageFont.load_default()  # Загружаем стандартный монохромный битмап фонт
     (chrx, chry) = font.getsize(chr(32))
-    # calculate weights of ASCII chars
+    # Рассчитываем весы для ASCII символов
     weights = []
     for i in range(32, 127):
         chrImage = font.getmask(chr(i))
@@ -39,15 +40,13 @@ def convertImageToAscii(image):
 
     output = ""
     (imgx, imgy) = image.size
-    # NEAREST/BILINEAR/BICUBIC/ANTIALIAS
-    #image = image.resize((imgx, imgy), Image.BICUBIC)
-    image = image.convert("L")  # convert to grayscale
+    image = image.convert("L")  # Преобразовываем в grayscale изображение
     pixels = image.load()
     for y in range(imgy):
         for x in range(imgx):
             w = float(pixels[x, y]) / 255
-            # find closest weight match
-            wf = -1.0;
+            # Находим ближайший по весу символ
+            wf = -1.0
             k = -1
             for i in range(len(weights)):
                 if abs(weights[i] - w) <= abs(wf - w):
@@ -65,11 +64,14 @@ def playVideoInConsole(frames):
         os.system(clear_console)
         sys.stdout.write(newFrame)
         sys.stdout.flush()
-        #time.sleep(0.1)
 
 
 def workWithGif(filePath):
     gif = Image.open(filePath)
     frames = extractFrames(gif)
     playVideoInConsole(frames)
+
+
+if __name__ in '__main__':
+    main()
 

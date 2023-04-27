@@ -1,13 +1,9 @@
-import numpy as np
-from PIL import Image
 from Point import Point
-from operator import methodcaller
-from math import pi, cos, sin
 
 
 class Parser:
     @staticmethod
-    def getVertexes(path):
+    def parseAllVertex(path):
         with open(path, 'r') as f:
             text = f.read().split('\n')
             vertexList = [row for row in text if row.startswith('v ')]
@@ -22,7 +18,7 @@ class Parser:
             return coordList, coordListVN
 
     @staticmethod
-    def getPolygons(path):
+    def parseAllPolygon(path):
         with open(path, 'r') as f:
             text = f.read().split('\n')
             polygonList = [row for row in text if row.startswith('f ')]
