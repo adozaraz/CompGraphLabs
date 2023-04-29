@@ -92,8 +92,8 @@ class OBJ3DModel:
         x = y = z = -20000000.0
         for i in range(len(self.vertexList)):
             x = max(abs(self.vertexList[i].x), x)
-            y = max(abs(self.vertexList[i].y), x)
-            z = max(abs(self.vertexList[i].z), x)
+            y = max(abs(self.vertexList[i].y), y)
+            z = max(abs(self.vertexList[i].z), z)
         for i in range(len(self.vertexList)):
             self.vertexList[i].x /= x
             self.vertexList[i].y /= y
@@ -317,10 +317,10 @@ class MyImage:
         xmax = max(x0, x1, x2) if max(x0, x1, x2) < width else width
         ymax = max(y0, y1, y2) if max(y0, y1, y2) < height else height
         if checkMax:
-            xmax = min(-width, xmax)
-            ymax = min(-height, ymax)
-            xmin = min(-width, xmin)
-            ymin = min(-height, ymin)
+            xmax = max(xmax, -width)
+            ymax = max(ymax, -height)
+            xmin = max(xmin, -width)
+            ymin = max(ymin, -height)
         return xmin, ymin, xmax, ymax
 
     def drawTriangle(self, x0, y0, x1, y1, x2, y2, color):
